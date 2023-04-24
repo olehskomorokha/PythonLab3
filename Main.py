@@ -6,50 +6,46 @@ import matplotlib.figure
 import matplotlib.backends.backend_tkagg
 
 
-
 class Lab3:
     def __init__(self):
         self.root = Tk()
-        self.root.geometry('900x600')
-        self.root.config(bg="light blue")
+        self.root.geometry('840x600')
+        self.root.config(bg="#99FF99")
 
         self.info_about = Label(self.root, text=f"Студент: Скомороха Олег\n"
-                                  f"Номер залікової книги: 2527\n"
-                                  f"Мій варіант: 2529 mod 10+1 = {2527 % 10 + 1}", bg="#FFA07A", width=29,
-                             relief=GROOVE)
-        self.my_info.place(x=10, y=10)
-        self.info_rebr = Label(self.root, text="Введыть вершини, між якими\nбуде ребро (через пробіл):", width=29)
-        self.info_rebr.place(x=10, y=65)
+                                                f"Номер залікової книги: 2527\n"
+                                                f"Варіант: 2527 mod 10+1 = {2527 % 10 + 1}", bg="#FF6666", width=29)
+        self.info_about.place(x=10, y=10)
+        self.rebra = Label(self.root, text="Введіть вершини, між якими\nбуде ребро:", width=29, bg="#FF6666")
+        self.rebra.place(x=10, y=65)
 
-        self.read_text = Entry(self.root, width=34)
-        self.read_text.place(x=10, y=105)
-        self.input_info = Button(self.root, text="Задати ребро", command=self.read_new_text, width=25)
-        self.input_info.place(x=23, y=130)
+        self.text = Entry(self.root, width=34)
+        self.text.place(x=10, y=105)
+        self.input = Button(self.root, text="Задати ребро", command=self.reading_Text, width=25, bg="#00FFFF")
+        self.input.place(x=23, y=130)
 
-        self.space = Label(self.root, text=f"{'-' * 40}", bg="light blue")
-        self.space.place(x=10, y=157)
-        self.save_info = Button(self.root, text="Зберегти список ребер", width=25)
-        self.save_info.place(x=23, y=180)
-        self.read_info = Button(self.root, text="Зчитати дані з файлу", width=25)
-        self.read_info.place(x=23, y=210)
+        self.saveInfo = Button(self.root, text="Зберегти список ребер", width=25, bg="#00FFFF")
+        self.saveInfo.place(x=23, y=160)
+        self.readInfo = Button(self.root, text="Зчитати дані з файлу", width=25, bg="#00FFFF")
+        self.readInfo.place(x=23, y=210)
 
-        self.info_list = Label(self.root, text="Список вже існуючих ребер", bg="light pink", relief=GROOVE)
-        self.info_list.place(x=250, y=10)
-        self.read_list = Listbox(self.root, width=20)
-        self.read_list.place(x=270, y=31)
+        self.infoList = Label(self.root, text="Список існуючих ребер:", bg="#FF6666")
+        self.infoList.place(x=268, y=8)
+        self.readList = Listbox(self.root, width=20)
+        self.readList.place(x=270, y=31)
 
-        self.info_text1 = Label(self.root, text='Перша вершина', relief=GROOVE, bg="light pink", fg="black", width=26)
-        self.info_text1.place(x=510, y=10)
-        self.see_info_get = Entry(self.root, width=30)
-        self.see_info_get.insert(END, '---')
-        self.see_info_get.place(x=510, y=33)
-        self.info_text2 = Label(self.root, text="Друга вершина", relief=GROOVE, bg="light pink", fg="black", width=26)
-        self.info_text2.place(x=510, y=56)
-        self.see_info_get2 = Entry(self.root, width=30)
-        self.see_info_get2.insert(END, '---')
-        self.see_info_get2.place(x=510, y=79)
-        self.but_road = Button(self.root, text='Прокласти найкорочший шлях', command=self.wayes_graph, width=25)
-        self.but_road.place(x=510, y=100)
+        self.infoText1 = Label(self.root, text='Перша вершина:', bg="#FF6666", fg="black", width=26)
+        self.infoText1.place(x=510, y=10)
+        self.Entery_Get = Entry(self.root, width=6)
+        self.Entery_Get.insert(END, '---')
+        self.Entery_Get.place(x=700, y=10)
+        self.infoText2 = Label(self.root, text="Друга вершина:", bg="#FF6666", fg="black", width=26)
+        self.infoText2.place(x=510, y=36)
+        self.Entery_Get2 = Entry(self.root, width=6)
+        self.Entery_Get2.insert(END, '---')
+        self.Entery_Get2.place(x=700, y=36)
+        self.button_find = Button(self.root, text='Знайти найкоротший шлях', command=self.graph, width=25, bg="#00FFFF")
+        self.button_find.place(x=510, y=80)
 
         self.grahper = None
         self.start_yes = None
@@ -63,9 +59,9 @@ class Lab3:
         self.canva = matplotlib.backends.backend_tkagg.FigureCanvasTkAgg(self.figure, master=self.root)
         self.canva.draw()
         self.canva.get_tk_widget().place(x=10, y=250, width=880)
-        self.draw()
+        self.drawing()
 
-    def levit(self, window):
+    def Slahiv_V_shiriny(self, window):
         self.ariana = [[int(window.table_entries[i][j].get()) for i in range(self.read_text)] for j in
                        range(self.read_text)]
         self.Grapher = nx.Grapher()
@@ -84,37 +80,36 @@ class Lab3:
                 else:
                     return
 
-    def read_new_text(self):
-        self.read_list.insert(END, self.read_text.get())
-        edges = self.read_list.get(0, last=END)
+    def reading_Text(self):
+        self.readList.insert(END, self.text.get())
+        edges = self.readList.get(0, last=END)
         self.grahper = netx.parse_edgelist(list(edges))
         self.start_yes = netx.spring_layout(self.grahper)
         self.place.cla()
-        self.draw()
+        self.drawing()
         self.canva.resize_event()
 
-    def my_window(self):
-        self.root.title("ІО-25 Сокольчук Олексій lab3dm")
+    def Mainwindow(self):
+        self.root.title("Лабораторна робота №3")
         self.root.mainloop()
 
-
-    def draw(self):
+    def drawing(self):
         if self.grahper is not None:
             netx.draw(self.grahper, self.start_yes, with_labels=True)
         if self.wayes is not None:
-            netx.draw_networkx_nodes(self.grahper, self.start_yes, nodelist=self.wayes, node_color='c')
-            netx.draw_networkx_edges(self.grahper, self.start_yes, edgelist=self.wayes_edges, edge_color='m')
+            netx.draw_networkx_nodes(self.grahper, self.start_yes, nodelist=self.wayes, node_color='yellow')
+            netx.draw_networkx_edges(self.grahper, self.start_yes, edgelist=self.wayes_edges, edge_color='red')
 
-    def wayes_graph(self):
-        point1 = self.see_info_get.get()
-        point2 = self.see_info_get2.get()
-        self.wayes = netx.shortest_path(self.grahper, source=point1, target=point2)
+    def graph(self):
+        start = self.Entery_Get.get()
+        end = self.Entery_Get2.get()
+        self.wayes = netx.shortest_path(self.grahper, source=start, target=end)
         self.wayes_edges = list(zip(self.wayes, self.wayes[1:]))
         self.place.cla()
-        self.draw()
+        self.drawing()
         self.canva.resize_event()
 
 
 if __name__ == '__main__':
-    graph = lab3dm()
-    graph.my_window()
+    graph = Lab3()
+    graph.Mainwindow()
